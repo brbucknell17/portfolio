@@ -1,5 +1,9 @@
-import { useState } from "react";
-import { Menu, X, Github, Linkedin, Mail, ExternalLink } from "lucide-react";
+// app/page.tsx — cleaned, responsive, and production‑ready
+import { Github, Linkedin, Mail, ExternalLink } from "lucide-react";
+
+// 1) Make sure Tailwind is installed and working.
+// 2) Put the CSS utilities shown below into your global CSS (e.g., app/globals.css).
+// 3) Drop this file into app/page.tsx and run: npm run dev
 
 export default function Page() {
   const projects = [
@@ -8,25 +12,29 @@ export default function Page() {
       tags: ["Python", "XGBoost", "A/B"],
       summary:
         "End‑to‑end pipeline improved CTR by 7.8% with calibrated probabilities and offline→online parity.",
+      href: "#",
     },
     {
       title: "Demand Forecasting – SKU/Store",
       tags: ["PyTorch", "Time Series"],
       summary:
         "Multi‑horizon model with hierarchical reconciliation; MAPE −12% across tail SKUs.",
+      href: "#",
     },
     {
       title: "Data App: Cohort Explorer",
       tags: ["Next.js", "DuckDB", "Vega"],
       summary:
         "Self‑serve retention explorer with cmd‑K palette and sharable deep links.",
+      href: "#",
     },
   ];
 
   return (
-    <div className="relative h-full overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 text-slate-100">
+      {/* subtle dot grid background */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.07]"
+        className="pointer-events-none absolute inset-0 opacity-[0.08]"
         style={{
           backgroundImage:
             "radial-gradient(circle at 1px 1px, rgba(255,255,255,.35) 1px, transparent 1px)",
@@ -34,55 +42,63 @@ export default function Page() {
         }}
       />
 
-      <section className="p-6 lg:p-12">
-        <div className="grid lg:grid-cols-3 gap-6 items-stretch">
-          <div className="lg:col-span-2 glass p-6 lg:p-8 shadow-[0_40px_120px_-40px_rgba(0,0,0,0.6)]">
-            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">Hi, I’m Bryan</h1>
-            <p className="mt-2 text-zinc-400 max-w-2xl">
-            I'm a Data Scientist
-            
+      <main className="relative z-10 p-6 lg:p-12">
+        <div className="grid items-stretch gap-6 lg:grid-cols-3">
+          {/* Hero */}
+          <section className="glass p-6 shadow-[0_40px_120px_-40px_rgba(0,0,0,0.6)] lg:col-span-2 lg:p-8">
+            <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">Hi, I’m Bryan</h1>
+            <p className="mt-2 max-w-2xl text-slate-300">
+              I’m a data scientist who blends analytics, ethical AI, and nature‑inspired design.
+              I build decision tools, forecasting systems, and polished data apps.
             </p>
 
-            <div className="mt-6 grid sm:grid-cols-2 gap-6">
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <a className="panel group" href="#projects">
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="font-medium">Featured Work</div>
-                    <div className="text-sm text-zinc-400">Case studies & demos</div>
+                    <div className="text-sm text-slate-400">Case studies & demos</div>
                   </div>
                   <Arrow />
                 </div>
               </a>
-              <a className="panel group" href="#blog">
+              <a className="panel group" href="#notes">
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="font-medium">Technical Notes</div>
-                    <div className="text-sm text-zinc-400">Short posts & notebooks</div>
+                    <div className="text-sm text-slate-400">Short posts & notebooks</div>
                   </div>
                   <Arrow />
                 </div>
               </a>
             </div>
-          </div>
+          </section>
 
-          <div className="relative glass p-6 grid place-items-center overflow-hidden h-96 md:h-[320px]">
-            <div className="absolute inset-0 pointer‐events‐none opacity-100 bg-cover bg-center"
-       style={{ backgroundImage: "url('sidegraphs.jpg')" }} />
-  <div className="relative z-10 glass p-8 lg:p-12">
-    {/* your headline and text */}
-  </div>
-          </div>
+          {/* Right feature image / hero visual */}
+          <section className="relative grid h-96 place-items-center overflow-hidden md:h-[320px]">
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: "url('/sidegraphs.jpg')" }}
+              aria-hidden
+            />
+            <div className="glass relative z-10 p-8 text-center">
+              <p className="text-sm text-slate-200">Analytics • Forecasting • LLM Apps</p>
+            </div>
+          </section>
         </div>
 
+        {/* Projects */}
         <h2 id="projects" className="mt-10 text-xl font-semibold">Projects</h2>
         <div className="mt-4 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {projects.map((p, i) => (
-            <article key={i} className="panel group">
+          {projects.map((p) => (
+            <article key={p.title} className="panel group">
               <div className="flex items-start justify-between gap-3">
                 <div className="font-medium leading-tight">{p.title}</div>
-                <span className="text-xs text-zinc-400">Case Study</span>
+                <a href={p.href} className="inline-flex items-center gap-1 text-xs text-slate-300 hover:underline">
+                  View <ExternalLink className="h-3.5 w-3.5" />
+                </a>
               </div>
-              <p className="mt-2 text-sm text-zinc-400">{p.summary}</p>
+              <p className="mt-2 text-sm text-slate-400">{p.summary}</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {p.tags.map((t) => (
                   <span key={t} className="tag">{t}</span>
@@ -91,117 +107,43 @@ export default function Page() {
             </article>
           ))}
         </div>
-      </section>
 
-      <style>{`
-        .glass { @apply bg-white/5 backdrop-blur-xl ring-1 ring-white/10 rounded-2xl; }
-        .panel { @apply glass p-5 ring-1 ring-white/10 transition-transform duration-200 hover:-translate-y-0.5; }
-        .tag { @apply px-2 py-0.5 rounded-full text-xs bg-white/10 ring-1 ring-white/10; }
-        .shape-shadow { filter: drop-shadow(0 30px 25px rgba(0,0,0,0.45)); }
-        .float { animation: float 6s ease-in-out infinite; }
-        .float2 { animation: float2 7s ease-in-out infinite; }
-        @keyframes float { 0%{ transform: translateY(0px) } 50%{ transform: translateY(-8px) } 100%{ transform: translateY(0px) } }
-        @keyframes float2 { 0%{ transform: translateY(0px) } 50%{ transform: translateY(10px) } 100%{ transform: translateY(0px) } }
-      `}</style>
+        {/* Contact */}
+        <section className="mt-12">
+          <h2 className="mb-3 text-xl font-semibold">Get in touch</h2>
+          <div className="flex flex-wrap gap-3">
+            <a href="mailto:you@example.com" className="btn-outline">
+              <Mail className="h-4 w-4" /> you@example.com
+            </a>
+            <a href="https://github.com/" className="btn-outline">
+              <Github className="h-4 w-4" /> GitHub
+            </a>
+            <a href="https://www.linkedin.com/" className="btn-outline">
+              <Linkedin className="h-4 w-4" /> LinkedIn
+            </a>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
 
 function Arrow() {
   return (
-    <div className="h-8 w-8 grid place-items-center rounded-lg bg-white/5 ring-1 ring-white/10 group-hover:bg-white/10 transition">
-      <svg width="18" height="18" viewBox="0 0 24 24" className="opacity-80"><path fill="currentColor" d="M13 5l7 7-7 7M5 12h14"/></svg>
+    <div className="grid h-8 w-8 place-items-center rounded-lg bg-white/5 ring-1 ring-white/10 transition group-hover:bg-white/10">
+      <svg width="18" height="18" viewBox="0 0 24 24" className="opacity-80">
+        <path fill="currentColor" d="M13 5l7 7-7 7M5 12h14" />
+      </svg>
     </div>
   );
 }
 
-function FauxScene() {
-  return (
-    <div className="relative w-full aspect-square">
-      <div className="absolute right-4 bottom-6 rotate-[20deg]">
-        <div className="shape-shadow h-28 w-44 rounded-xl bg-gradient-to-br from-indigo-500/70 to-indigo-300/60" />
-      </div>
-
-      <div className="absolute left-6 top-6 float">
-        <div className="shape-shadow h-10 w-10 rounded-full bg-gradient-to-br from-teal-300 to-cyan-400" />
-      </div>
-      <div className="absolute left-24 top-16 float2">
-        <div className="shape-shadow h-5 w-5 rounded-full bg-gradient-to-br from-sky-300 to-indigo-300" />
-      </div>
-      <div className="absolute right-8 top-8 float2">
-        <div className="shape-shadow h-16 w-16 rounded-lg bg-gradient-to-br from-slate-200 to-slate-400" />
-      </div>
-      <div className="absolute left-10 bottom-10">
-        <div className="shape-shadow h-16 w-16 rounded-full bg-gradient-to-br from-slate-400 to-slate-300" />
-      </div>
-      <div className="absolute right-16 bottom-16">
-        <div className="shape-shadow h-12 w-24 rounded-xl bg-gradient-to-br from-emerald-400/80 to-teal-400/60" />
-      </div>
-    </div>
-  );
-}
-export default function ResponsivePortfolio() {
-title="Living Earth Dashboard"
-desc="Interactive environmental trends (CO₂, biodiversity, climate) with actionable insights for creative products."
-href="#"
-/>
-<ProjectCard
-title="Customer Insights Explorer"
-desc="Sales & engagement analytics for Homesteads & Habitats—SQL + Python + dashboards."
-href="#"
-/>
-<ProjectCard
-title="NatureMatch Recommender"
-desc="Content-based ML to recommend diorama themes and eco-friendly materials based on user preferences."
-href="#"
-/>
-</div>
-</section>
-
-
-{/* About & Skills */}
-<section id="about" className="mb-12">
-<h2 className="mb-3 text-2xl font-semibold">About</h2>
-<p className="max-w-3xl text-gray-700">
-I combine data science with humanistic values to create work that’s useful, ethical, and beautiful.
-My background includes analytics, visualization, and hands-on creative building. I love turning messy
-data into clear stories and practical tools.
-</p>
-</section>
-
-
-<section id="skills" className="mb-12">
-<h2 className="mb-3 text-2xl font-semibold">Skills</h2>
-<ul className="grid grid-cols-2 gap-2 text-sm text-gray-700 sm:grid-cols-3 lg:grid-cols-4">
-<li className="rounded-xl border px-3 py-2">Python · Pandas</li>
-<li className="rounded-xl border px-3 py-2">SQL · BigQuery</li>
-<li className="rounded-xl border px-3 py-2">scikit-learn</li>
-<li className="rounded-xl border px-3 py-2">NLP · LLM Apps</li>
-<li className="rounded-xl border px-3 py-2">Data Viz · Plotly</li>
-<li className="rounded-xl border px-3 py-2">Next.js · Tailwind</li>
-<li className="rounded-xl border px-3 py-2">Tableau / Power BI</li>
-<li className="rounded-xl border px-3 py-2">Git · CI/CD</li>
-</ul>
-</section>
-
-
-{/* Contact */}
-<section id="contact" className="mb-4">
-<h2 className="mb-3 text-2xl font-semibold">Get in touch</h2>
-<div className="flex flex-wrap gap-3">
-<a href="mailto:you@example.com" className="inline-flex items-center gap-2 rounded-xl border px-4 py-2 hover:bg-gray-50">
-<Mail className="h-4 w-4" /> you@example.com
-</a>
-<a href="https://github.com/" className="inline-flex items-center gap-2 rounded-xl border px-4 py-2 hover:bg-gray-50">
-<Github className="h-4 w-4" /> GitHub
-</a>
-<a href="https://www.linkedin.com/" className="inline-flex items-center gap-2 rounded-xl border px-4 py-2 hover:bg-gray-50">
-<Linkedin className="h-4 w-4" /> LinkedIn
-</a>
-</div>
-</section>
-</main>
-</div>
-</div>
-);
-}
+/* =========================================================
+   Paste this into app/globals.css (or a dedicated CSS file)
+   ========================================================= */
+/*
+.glass { @apply bg-white/5 backdrop-blur-xl ring-1 ring-white/10 rounded-2xl; }
+.panel { @apply glass p-5 transition-transform duration-200 hover:-translate-y-0.5; }
+.tag { @apply px-2 py-0.5 rounded-full text-xs bg-white/10 ring-1 ring-white/10; }
+.btn-outline { @apply inline-flex items-center gap-2 rounded-xl border border-white/15 px-4 py-2 text-slate-200 hover:bg-white/5; }
+*/
