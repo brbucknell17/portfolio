@@ -35,12 +35,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
 
             <nav className="text-sm mt-2 space-y-1">
-              <SectionLink label="About" />
+              <SectionLink label="Resume" />
               <SectionLink label="Projects" />
               <SectionLink label="Notebooks" />
-              <SectionLink label="Blog" />
-              <SectionLink label="Resume" />
               <SectionLink label="Contact" />
+              <SectionLink label="Block" />
             </nav>
 
    
@@ -49,7 +48,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="mt-auto flex items-center justify-between text-sm text-zinc-400">
               <span>© {new Date().getFullYear()}</span>
               <div className="flex gap-3">
-                <IconButton label="G" />
                 <IconButton label="in" />
                 <IconButton label="@" />
               </div>
